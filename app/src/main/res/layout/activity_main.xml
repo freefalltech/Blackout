@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context="io.github.freefalltech.blackout.MainActivity"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="30sp"
+        android:text="@string/hero_title"
+        android:textColor="#ffffff"
+        android:textSize="50sp"
+        android:id="@+id/heroTextMain"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:id="@+id/saveDataText"
+        android:layout_centerHorizontal="true"
+        android:text="Turning off mobile data can save battery."
+        android:textColor="#ffffff"
+        android:textSize="13sp"
+        android:layout_margin="20sp"
+        android:layout_below="@id/heroTextMain"/>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#ffffff"
+        android:id="@+id/cardViewCellular"
+        android:onClick="turnNetworkOff"
+        android:layout_below="@id/saveDataText"
+        android:layout_centerHorizontal="true">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            app:cardBackgroundColor="@color/colorPrimaryDark">
+
+            <TextView
+                android:id="@+id/cellOffButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="@string/cellular_networks_off"
+                android:textColor="#ffffff"
+                android:textSize="10sp" />
+        </android.support.v7.widget.CardView>
+
+
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/wifiText"
+        android:text="Search for Blackout users nearby"
+        android:textSize="30sp"
+        android:textColor="#ffffff"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:onClick="searchWifi"
+        android:layout_below="@id/cardViewCellular"
+        android:layout_margin="20sp"/>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:background="#000000"
+        android:id="@+id/rLayout"
+        android:layout_below="@+id/cardViewCellular"
+        android:layout_centerHorizontal="true">
+
+
+
+
+
+
+    </RelativeLayout>
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#ffffff"
+        android:id="@+id/cardViewAlarm"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20sp"
+        android:layout_centerHorizontal="true">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            app:cardBackgroundColor="@color/colorPrimaryDark">
+
+            <TextView
+                android:layout_margin="5dp"
+                android:layout_width="wrap_content"
+                android:textSize="20sp"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:text="@string/ultrasound_alarm" />
+        </android.support.v7.widget.CardView>
+    </android.support.v7.widget.CardView>
+
+
+</RelativeLayout>

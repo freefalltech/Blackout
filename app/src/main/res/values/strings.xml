@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Blackout</string>
+    <string name="hero_title">Blackout.</string>
+    <string name="subtextOpener">IF YOU THINK YOU\'RE IN A DISASTER STRICKEN AREA,YOU CAN ENABLE BLACKOUT</string>
+    <string name="enable_blackout">Enable Blackout</string>
+    <string name="ultrasound_alarm">Ultrasound Alarm</string>
+    <string name="cellular_networks_off">Turn network off</string>
+</resources>

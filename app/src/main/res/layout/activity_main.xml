@@ -28,7 +28,7 @@
         android:textAlignment="center"
         android:id="@+id/saveDataText"
         android:layout_centerHorizontal="true"
-        android:text="Turning off mobile data can save battery."
+        android:text="@string/cellular_networks_off_helper"
         android:textColor="#ffffff"
         android:textSize="13sp"
         android:layout_margin="20sp"

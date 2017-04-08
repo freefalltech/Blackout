@@ -6,4 +6,5 @@
     <string name="ultrasound_alarm">Ultrasound Alarm</string>
     <string name="cellular_networks_off">Turn network off</string>
     <string name="cellular_networks_off_helper">Turning off mobile networks can save battery.</string>
+    <string name="audible_alarm">Audible Alarm</string>
 </resources>

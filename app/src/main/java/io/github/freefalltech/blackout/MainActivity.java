@@ -1,7 +1,6 @@
 package io.github.freefalltech.blackout;
 
 import android.Manifest;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -10,6 +9,7 @@ import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
@@ -95,27 +95,23 @@ public class MainActivity extends AppCompatActivity {
             int apstate = (Integer) getWifiApStateMethod.invoke(wifiManager);
             Method getWifiApConfigurationMethod = wifiManager.getClass().getMethod("getWifiApConfiguration");
             netConfig = (WifiConfiguration) getWifiApConfigurationMethod.invoke(wifiManager);
-            Log.e("CLIENT", "\nSSID:" + netConfig.SSID + "\nPassword:" + netConfig.preSharedKey + "\n");
+            Log.v("CLIENT", "\nSSID:" + netConfig.SSID + "\nPassword:" + netConfig.preSharedKey + "\n");
 
             WifiConfiguration apConfig = null;
         } catch (Exception e) {
-            Log.e(this.getClass().toString(), "", e);
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            final Intent intent = new Intent(Intent.ACTION_MAIN, null);
-            intent.addCategory(Intent.CATEGORY_LAUNCHER);
-            final ComponentName cn = new ComponentName(
-                    "com.android.settings",
-                    "com.android.settings.TetherSettings");
-            intent.setComponent(cn);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        }
-
-    }
-
-    private void start1Hotspot(String hotName) {
-
+            Log.v(this.getClass().toString(), "", e);
+        } /*finally {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                Log.v("HAHA", "ENTERED BADASS-ly");
+                final Intent intent = new Intent(Intent.ACTION_MAIN, null);
+                intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                final ComponentName cn = new ComponentName(
+                        "com.android.settings",
+                        "com.android.settings.TetherSettings");
+                intent.setComponent(cn);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }}*/
     }
 
     @Override
@@ -137,18 +133,6 @@ public class MainActivity extends AppCompatActivity {
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
                     1);
         }
-    }
-
-
-    public void searchWifi(View v) {
-        searchWifiText = (TextView) findViewById(R.id.wifiText);
-        searchWifiText.setVisibility(View.GONE);
-        RelativeLayout rl = (RelativeLayout) findViewById(R.id.rLayout);
-        rl.setVisibility(View.VISIBLE);
-
-        //starting the wifi search process
-
-
     }
 
     private void dimBrightness() {
@@ -174,29 +158,37 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
         startActivity(intent);
     }
-/*
-    public static void setIsWifiP2pEnabled(boolean isWifiP2pEnabled) {
-        // Do something in response to the boolean you are supplied
 
-        if (isWifiP2pEnabled) {
+    boolean flagAudi = false, flagUltra = false;
+    MediaPlayer mPlayer;
 
-        } else {
-            //not enabled
+    public void playAlarmAudible(View v) {
+        if (mPlayer!=null&&mPlayer.isPlaying()) {
+            mPlayer.stop();
+            mPlayer = null;
         }
+        mPlayer = MediaPlayer.create(MainActivity.this, R.raw.alarm_audible);
+        mPlayer.start();
+        flagAudi = true;
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        receiver = new WifiBroadcastReciever(mManager, mChannel, this);
-        registerReceiver(receiver, intentFilter);
+    public void onDestroy() {
+        if (mPlayer != null)
+            mPlayer.stop();
+        super.onDestroy();
+
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        unregisterReceiver(receiver);
-    }*/
+    public void playAlarmUltrasonic(View view) {
+        if (mPlayer!=null&&mPlayer.isPlaying()) {
+            mPlayer.stop();
+            mPlayer = null;
+        }
+        mPlayer = MediaPlayer.create(MainActivity.this, R.raw.alarm_ultrasonic);
+        mPlayer.start();
+        flagUltra = true;
+    }
 
 
     private class MyLocationListener implements LocationListener {
@@ -211,8 +203,6 @@ public class MainActivity extends AppCompatActivity {
                 currentBestLocation = curLocation;
             if (currentBestLocation != null) {
                 String hotspotName = "Blackout*" + currentBestLocation.getLatitude() + "*" + currentBestLocation.getLongitude();
-                TextView location = (TextView) findViewById(R.id.location);
-                location.setText(hotspotName);
                 start2Hotspot(hotspotName);
             }
 
